@@ -102,15 +102,16 @@ src/hr_breaker/
 └── cli.py           # Click CLI
 ```
 
-**Agents**: job_parser, optimizer, reviewer, name_extractor, hallucination_detector, formatting_checker
+**Agents**: job_parser, optimizer, combined_reviewer, name_extractor, hallucination_detector, ai_generated_detector
 
 **Filters** (run by priority):
-1. ContentLengthChecker - Pre-render size check
-2. DataValidator - HTML structure validation
-3. FormattingChecker - Vision LLM + page count
-4. HallucinationChecker - Detect fabrications
-5. KeywordMatcher - TF-IDF matching
-6. LLMChecker / VectorSimilarityMatcher - ATS simulation
+0. ContentLengthChecker - Pre-render size check
+1. DataValidator - HTML structure validation
+3. HallucinationChecker - Detect fabrications
+4. KeywordMatcher - TF-IDF matching
+5. LLMChecker - ATS simulation
+6. VectorSimilarityMatcher - Semantic similarity
+7. AIGeneratedChecker - Detect AI-sounding text
 
 ## Development
 
