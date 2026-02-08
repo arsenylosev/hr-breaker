@@ -218,7 +218,7 @@ async def translate_and_rerender(
 
     for i in range(max_translation_iterations):
         iter_label = f"Translation iteration {i + 1}/{max_translation_iterations}"
-        logger.debug(f"{iter_label}: translating to {language.english_name}")
+        logger.debug("%s: translating to %s", iter_label, language.english_name)
         if on_status:
             status = f"Translating to {language.english_name}..."
             if i > 0:
@@ -228,7 +228,7 @@ async def translate_and_rerender(
         with log_time(f"translate_resume (iter {i + 1})"):
             translation = await translate_resume(original_html, language, job, feedback=feedback)
 
-        logger.debug(f"{iter_label}: reviewing translation")
+        logger.debug("%s: reviewing translation", iter_label)
         if on_status:
             on_status(f"Reviewing {language.english_name} translation...")
 
@@ -236,11 +236,11 @@ async def translate_and_rerender(
             review = await review_translation(original_html, translation.html, language, job)
 
         logger.debug(
-            f"{iter_label}: review score={review.score:.2f}, passed={review.passed}"
+            "%s: review score=%.2f, passed=%s", iter_label, review.score, review.passed
         )
 
         if review.passed:
-            logger.debug(f"Translation approved (score={review.score:.2f})")
+            logger.debug("Translation approved (score=%.2f)", review.score)
             break
 
         # Build feedback for next iteration
@@ -250,11 +250,11 @@ async def translate_and_rerender(
         if review.suggestions:
             feedback_parts.append("Suggestions: " + "; ".join(review.suggestions))
         feedback = "\n".join(feedback_parts)
-        logger.debug(f"Translation feedback: {feedback}")
+        logger.debug("Translation feedback: %s", feedback)
     else:
         logger.warning(
-            f"Translation review did not pass after {max_translation_iterations} iterations "
-            f"(score={review.score:.2f}), using last translation"
+            "Translation review did not pass after %d iterations (score=%.2f), using last translation",
+            max_translation_iterations, review.score,
         )
 
     # Update optimized with translated HTML and re-render PDF
