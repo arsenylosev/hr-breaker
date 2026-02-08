@@ -6,7 +6,7 @@ from datetime import date
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
-from hr_breaker.config import get_model_settings, get_settings
+from hr_breaker.config import get_flash_model, get_model_settings
 from hr_breaker.models import JobPosting
 from hr_breaker.models.language import Language
 
@@ -79,13 +79,12 @@ class TranslationReview(BaseModel):
 
 def get_translation_reviewer_agent(language: Language) -> Agent:
     """Create translation reviewer agent for the given language."""
-    settings = get_settings()
     prompt = SYSTEM_PROMPT.format(
         language_english=language.english_name,
         language_native=language.native_name,
     )
     agent = Agent(
-        f"google-gla:{settings.gemini_flash_model}",
+        get_flash_model(),
         output_type=TranslationReview,
         system_prompt=prompt,
         model_settings=get_model_settings(),
