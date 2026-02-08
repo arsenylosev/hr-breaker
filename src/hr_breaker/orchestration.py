@@ -206,7 +206,7 @@ async def optimize_for_job(
             break
 
     # Post-processing: translate if target language is not English
-    if language is not None and language.code != "en" and validation.passed and optimized is not None and optimized.html:
+    if language is not None and language.code != "en" and optimized is not None and optimized.html:
         optimized = await translate_and_rerender(
             optimized, language, job, renderer, settings.translation_max_iterations,
             on_translation_status,
