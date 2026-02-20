@@ -56,21 +56,6 @@ To use Moonshot AI instead of Gemini:
 
 Moonshot AI models work via LiteLLM — see [LiteLLM Moonshot docs](https://docs.litellm.ai/docs/providers/moonshot) for available models.
 
-### Using Kimi Code API (Kimi for Coding subscription)
-
-If you have a Kimi Code API key (from https://www.kimi.com/code/console):
-
-1. Set the OpenAI-compatible endpoint and your API key:
-   ```bash
-   OPENAI_BASE_URL=https://api.kimi.com/coding/v1
-   OPENAI_API_KEY=sk-kimi-xxxxx
-   PRO_MODEL=openai/kimi-for-coding
-   FLASH_MODEL=openai/kimi-for-coding
-   ```
-2. The User-Agent header is automatically configured to work with Kimi Code API restrictions.
-
-**Note:** Use the `openai/` prefix for the model name since Kimi Code provides an OpenAI-compatible API. The User-Agent is automatically set to `claude-code/0.1.0` to bypass Kimi Code's coding agent restrictions.
-
 ## Usage
 
 ### Web UI

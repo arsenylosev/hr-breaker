@@ -18,11 +18,6 @@ load_dotenv()
 litellm.suppress_debug_info = True
 litellm_patch.apply()
 
-# Set User-Agent for Kimi Code API compatibility
-# The Kimi Code API requires a coding agent User-Agent to bypass restrictions
-if "kimi.com/coding" in os.getenv("OPENAI_BASE_URL", ""):
-    litellm.headers = {"User-Agent": "claude-code/0.1.0"}
-
 
 def setup_logging() -> logging.Logger:
     general_level = os.getenv("LOG_LEVEL_GENERAL", "WARNING").upper()
