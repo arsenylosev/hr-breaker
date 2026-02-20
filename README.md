@@ -36,11 +36,40 @@ uv sync
 
 # Configure
 cp .env.example .env
-# Edit .env and add your GOOGLE_API_KEY
+# Edit .env and add your GOOGLE_API_KEY (for Gemini) or MOONSHOT_API_KEY (for Moonshot AI)
 
 # Run web UI
 uv run streamlit run src/hr_breaker/main.py
 ```
+
+### Using Moonshot AI (Kimi)
+
+To use Moonshot AI instead of Gemini:
+
+1. Get a Moonshot AI API key from https://platform.moonshot.ai/
+2. Set `MOONSHOT_API_KEY` in your `.env` file
+3. Configure models to use Moonshot:
+   ```bash
+   PRO_MODEL=moonshot/kimi-k2-5
+   FLASH_MODEL=moonshot/kimi-k2-5
+   ```
+
+Moonshot AI models work via LiteLLM — see [LiteLLM Moonshot docs](https://docs.litellm.ai/docs/providers/moonshot) for available models.
+
+### Using Kimi Code API (Kimi for Coding subscription)
+
+If you have a Kimi Code API key (from https://www.kimi.com/code/console):
+
+1. Set the OpenAI-compatible endpoint and your API key:
+   ```bash
+   OPENAI_BASE_URL=https://api.kimi.com/coding/v1
+   OPENAI_API_KEY=sk-kimi-xxxxx
+   PRO_MODEL=openai/kimi-for-coding
+   FLASH_MODEL=openai/kimi-for-coding
+   ```
+2. The User-Agent header is automatically configured to work with Kimi Code API restrictions.
+
+**Note:** Use the `openai/` prefix for the model name since Kimi Code provides an OpenAI-compatible API. The User-Agent is automatically set to `claude-code/0.1.0` to bypass Kimi Code's coding agent restrictions.
 
 ## Usage
 
@@ -86,7 +115,7 @@ uv run hr-breaker list
 
 ## Configuration
 
-Copy `.env.example` to `.env` and set `GOOGLE_API_KEY` (required). See `.env.example` for all available options.
+Copy `.env.example` to `.env` and set `GOOGLE_API_KEY` (for Gemini) or `MOONSHOT_API_KEY` (for Moonshot AI). See `.env.example` for all available options.
 
 ---
 
