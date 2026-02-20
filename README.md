@@ -58,18 +58,18 @@ Moonshot AI models work via LiteLLM — see [LiteLLM Moonshot docs](https://docs
 
 ### Using Kimi Code API (Kimi for Coding subscription)
 
-If you have a Kimi Code API key (from https://www.kimi.com/code/console):
+If you have a Kimi Code API key (from https://www.kimi.com/code/console), the recommended approach is to use OpenClaw as a proxy:
 
-1. Set the OpenAI-compatible endpoint and your API key:
+1. Ensure OpenClaw is running and configured with your Kimi Code API key
+2. Configure hr-breaker to use OpenClaw's gateway:
    ```bash
-   OPENAI_BASE_URL=https://api.kimi.com/coding/v1
-   OPENAI_API_KEY=sk-kimi-xxxxx
-   PRO_MODEL=openai/kimi-for-coding
-   FLASH_MODEL=openai/kimi-for-coding
+   OPENAI_BASE_URL=http://localhost:18789/v1
+   OPENAI_API_KEY=your-openclaw-gateway-token
+   PRO_MODEL=kimi-coding/k2p5
+   FLASH_MODEL=kimi-coding/k2p5
    ```
-2. The User-Agent header is automatically configured to work with Kimi Code API restrictions.
 
-**Note:** Use the `openai/` prefix for the model name since Kimi Code provides an OpenAI-compatible API. The User-Agent is automatically set to `claude-code/0.1.0` to bypass Kimi Code's coding agent restrictions.
+**Note:** Direct connection to Kimi Code API (`api.kimi.com/coding`) is not recommended due to compatibility issues with pydantic-ai's tool calling. Using OpenClaw as a proxy provides better compatibility.
 
 ## Usage
 
